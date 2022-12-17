@@ -1,3 +1,4 @@
+import 'package:blogflutter/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -57,7 +58,9 @@ class _StartPageState extends State<StartPage> {
                    SizedBox(
                      width: size * 0.9,
                      height: 60,
-                     child: ElevatedButton(onPressed: (){}, child: Text('Get Started', style: TextStyle(
+                     child: ElevatedButton(onPressed: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (contex)=> HomePage() ),);
+                     }, child: Text('Get Started', style: TextStyle(
                        fontSize: 16,
                      ),
                      ),
@@ -100,7 +103,9 @@ class _StartPageState extends State<StartPage> {
                    SizedBox(
                      width: size * 0.9,
                      height: 60,
-                     child: ElevatedButton(onPressed: (){}, child: Text('Get Started', style: TextStyle(
+                     child: ElevatedButton(onPressed: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                     }, child: Text('Get Started', style: TextStyle(
                        fontSize: 16,
                      ),
                      ),
@@ -143,7 +148,9 @@ class _StartPageState extends State<StartPage> {
                    SizedBox(
                      width: size * 0.9,
                      height: 60,
-                     child: ElevatedButton(onPressed: (){}, child: Text('Get Started', style: TextStyle(
+                     child: ElevatedButton(onPressed: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                     }, child: Text('Get Started', style: TextStyle(
                        fontSize: 16,
                      ),
                      ),
