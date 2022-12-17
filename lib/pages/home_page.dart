@@ -87,6 +87,37 @@ class _HomePageState extends State<HomePage> {
                   );
                 },),
             ),
+            SizedBox(height: 30,),
+            Container(
+              height: 250,
+              padding: EdgeInsets.only(left: 20),
+              child: ListView.builder(
+                padding: EdgeInsets.only(right: 10),
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, item){
+                    return Container(
+                      margin: EdgeInsets.only(right: 20),
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.grey.withOpacity(0.1),
+
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset('assets/images/02.png', width: 180,),
+                          Text('Lunan Beach', style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600
+                          ),),
+                        ],
+                      ),
+                    );
+              }),
+            ),
           ],
         ),
       ),
