@@ -1,6 +1,6 @@
 import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,6 +10,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  List<dynamic> _posts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+    getData() async {
+    final response = await Dio().get('https://jsonplaceholder.typicode.com/photos');
+    setState(() {
+      _posts = response.data;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.height;
@@ -64,7 +81,8 @@ class _HomePageState extends State<HomePage> {
             Container(
               padding: EdgeInsets.only(left: 20),
               height: 70,
-              child: ListView.builder(
+              child:
+              ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index){
@@ -91,32 +109,45 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: 250,
               padding: EdgeInsets.only(left: 20),
-              child: ListView.builder(
-                padding: EdgeInsets.only(right: 10),
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, item){
-                    return Container(
-                      margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.grey.withOpacity(0.1),
+              child: FutureBuilder(
+                builder: (ctx, snapshot) {
+                  return ListView.builder(
+                      padding: EdgeInsets.only(right: 10),
+                      itemCount: _posts.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, item){
+                        return GestureDetector(
+                          onTap: (){
+                            print(_posts[item]['id']);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(right: 20),
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.grey.withOpacity(0.1),
 
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/images/02.png', width: 180,),
-                          Text('Lunan Beach', style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600
-                          ),),
-                        ],
-                      ),
-                    );
-              }),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.network(_posts[item]['thumbnailUrl'], width: 180,),
+                                SizedBox(
+                                  width: 250,
+                                  child: Text(_posts[item]['title'], style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    overflow: TextOverflow.ellipsis
+                                  ),),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                }
+              ),
             ),
           ],
         ),
